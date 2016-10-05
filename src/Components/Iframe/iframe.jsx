@@ -9,11 +9,12 @@ export default class Iframe extends React.Component{
 	}
 
 	checkIfSubmitted(){
-
+		console.log('iframe loaded');
+		$('#iframeLoader').hide();
 	}
 	render(){
 
-		return <iframe style={{width:"100%"}} height="500px" frameBorder="0" src={this.props.iframeSrc} onLoad={this.checkIfSubmitted} ></iframe>
+		return <iframe style={{width:"100%", "min-height": "500px"}} height="100%" frameBorder="0" src={this.props.iframeSrc} onLoad={this.checkIfSubmitted} ></iframe>
 		
 	}
 }

@@ -1,56 +1,56 @@
 import React from 'react';
 import Input from './input.jsx';
 
-export default class Inputcontainer extends React.Component{
-	constructor(){
+export default class Inputcontainer extends React.Component {
+	constructor() {
 		super();
 
 		this.changeList = this.changeList.bind(this);
 	}
 
-	changeList(event){
+	changeList(event) {
 
-		var inputText= event.target.value;
-		
-		if(inputText!=""){
+		var inputText = event.target.value;
 
-			var regExpressions = inputText.split(" ").filter(function(x){return x!==""? true: false;}).map(function(value){
+		if (inputText != "") {
+			$('#inputandlist').find('.list-group').show();
+			var regExpressions = inputText.split(" ").filter(function (x) { return x !== "" ? true : false; }).map(function (value) {
 
-				return (new RegExp(value,"ig"));
+				return (new RegExp(value, "ig"));
 			});
 
 			console.log(regExpressions);
 
-		var matchingArray= this.props.initialArray.filter(function(value){
+			var matchingArray = this.props.initialArray.filter(function (value) {
 
-			var filterVariable= regExpressions.every(function(expression) {
+				var filterVariable = regExpressions.every(function (expression) {
 
-				
-				return expression.test(value[1]);
+
+					return expression.test(value[1]);
+				});
+
+
+				return filterVariable;
 			});
 
-			
-			return filterVariable;
-			});
 
-
-		this.props.listChangeHandler(matchingArray);
+			this.props.listChangeHandler(matchingArray);
 		}
-		else{
-
-		this.props.listChangeHandler([]);
+		else {
+			$('#inputandlist').find('.list-group').hide();
+			this.props.listChangeHandler([]);
 		}
 
 
-		
-		
+
+
 
 	}
 
 
-	render(){
+	render() {
 
 		return <Input changeHandler={this.changeList}/>
-		
+
 	}
 }
