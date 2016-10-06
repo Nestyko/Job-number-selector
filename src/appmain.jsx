@@ -21,7 +21,7 @@ class Selector extends React.Component {
 		this.giveIframeIdWithClick = this.giveIframeIdWithClick.bind(this);
 		this.collapseIframe = this.collapseIframe.bind(this);
 		this.deliverablesBack = this.deliverablesBack.bind(this);
-		this.state = { listArray: [], iframeSrc: "", deliverables: [['1'],['2'],['3']] };
+		this.state = { listArray: [], iframeSrc: "", deliverables: [['1'], ['2'], ['3']] };
 	}
 
 
@@ -31,7 +31,7 @@ class Selector extends React.Component {
 
 
 	}
-//<ArrayList arrayList={this.state.deliverables} handleClick={this.giveIframeIdWithClick} fields={["Deliverables"]} />
+	//<ArrayList arrayList={this.state.deliverables} handleClick={this.giveIframeIdWithClick} fields={["Deliverables"]} />
 
 	handleRowClick(event) {
 
@@ -40,7 +40,7 @@ class Selector extends React.Component {
 		setTimeout(function () {
 			$('#iframe').collapse("toggle");
 		}, 400);*/
-		
+
 		console.log('Row Clicked', this);
 		rbf_getRelatedIds2("R125800", "Job", event.target.id, (relName, objId, deliverab) => {
 			console.log('this was done', deliverab);
@@ -68,12 +68,12 @@ class Selector extends React.Component {
 		motion = motion || 'toggle'
 
 		$("#iframe").collapse(motion);
-		if(motion !== 'show'){
+		if (motion !== 'show') {
 			setTimeout(function () {
 				this.setState({ iframeSrc: "" });
 			}.bind(this), 400);
 		}
-		
+
 	}
 
 	deliverablesBack() {
@@ -101,7 +101,7 @@ class Selector extends React.Component {
 					</div>
 
 					<div style={{ position: "relative" }} id="deliverables" className="collapse">
-						<h3 style={{"text-align": "center"}}>Select Deliverable</h3>
+						<h3 style={{ "text-align": "center" }}>Select Deliverable</h3>
 						<Joblistcontainer listArray={this.state.deliverables} handleRowClick={this.giveIframeIdWithClick}/>
 						<button style={{
 							"position": "absolute",
@@ -110,7 +110,7 @@ class Selector extends React.Component {
 						}} className="btn btn-primary" onClick={this.deliverablesBack} >Back</button>
 					</div>
 
-					<div id="iframeLoader" style={{"margin": "0 auto"}} className="loader"></div>
+					<div id="iframeLoader" style={{ "margin": "0 auto" }} className="loader"></div>
 
 					<div className="collapse row" id="iframe">
 
@@ -143,13 +143,17 @@ var CPlan = "http://www.dev.impeltechnology.com:8830/prod1/m/main.jsp?view=main&
 
 var RAssestment = "http://www.dev.impeltechnology.com:8830/prod1/m/main.jsp?view=main&pageId=126913&objDefId=125716&tabId=106288"
 
-//var values=[[107909,"Saved Job"],[107936,"Test Job 2"],[107940,"Job 040"],[107947,"Job 007"],[107497,"Test Job"],[107604,"No callout Document"],[112183,"0010"]];
+var mock_values=[[107909,"Saved Job"],[107936,"Test Job 2"],[107940,"Job 040"],[107947,"Job 007"],[107497,"Test Job"],[107604,"No callout Document"],[112183,"0010"]];
 
 
-rbf_selectQuery("SELECT id, name FROM Job", 1000, function (values) {
+if (rb) {
+	rbf_selectQuery("SELECT id, name FROM Job", 1000, function (values) {
 
-	ReactDom.render(<Selector array={values}/>, document.getElementById('selectorContainer'));
+		ReactDom.render(<Selector array={values}/>, document.getElementById('selectorContainer'));
 
 
-});
+	});
+}else{
+	ReactDom.render(<Selector array={mock_values}/>, document.getElementById('selectorContainer'));
+}
 
